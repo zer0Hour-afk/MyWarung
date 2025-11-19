@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <!-- STATS GRID -->
+    <!-- STATS GRID MENGGUNAKAN BANTUAN AI -->
     <div class="stats-grid">
         <div class="nerv-card card-purple">
             <div class="card-decoration top-right"></div>
@@ -75,11 +75,10 @@
 
 <style>
     /*
-       Menggunakan variabel CSS dari Master Layout
+       Menggunakan css
     */
 
     .nerv-dashboard {
-        /* Animasi masuk halus */
         animation: fadeIn 0.8s ease-out;
     }
 
@@ -88,7 +87,6 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* HEADER */
     .header-section {
         display: flex;
         justify-content: space-between;
