@@ -18,7 +18,7 @@ class UpdateBarangRequest extends FormRequest
         $kategoriId = $this->route('barang')->id;
 
         return [
-            // nama harus unik, tapi abaikan unik untuk dirinya sendiri
+            // nama harus unik
             'nama' => [
                 'required',
                 'string',
