@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- Load SweetAlert2 dari CDN --}}
+{{-- Load SweetAlert2 dari CDN agar ada pemberitahuan saat ingin menghapus data --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="nerv-panel">
@@ -52,7 +52,7 @@
                 @empty
                     <tr>
                         <td colspan="3" style="text-align: center; padding: 3rem; color: var(--text-muted);">
-                            [ NO DATA FOUND IN SYSTEM ]
+                            [ TIDAK ADA DATA KATEGORI YANG DITEMUKAN ]
                         </td>
                     </tr>
                 @endforelse
@@ -66,21 +66,19 @@
 </div>
 
 <script>
-    // Fungsi Kustom SweetAlert gaya NERV
+    // Fungsi Kustom SweetAlert 
     function confirmDelete(id) {
         Swal.fire({
             title: 'WARNING: SECURITY ALERT',
             text: "Data kategori ini akan dihapus PURGED. Lanjutkan?",
             icon: 'warning',
             showCancelButton: true,
-            // Styling Gelap NERV
             background: '#15151a', 
             color: '#eeeeee',
             confirmButtonColor: '#e74c3c', // Merah
             cancelButtonColor: '#734CA6',  // Ungu
             confirmButtonText: 'YA!, HAPUSSSSS!!!!',
             cancelButtonText: 'BATAL',
-            // Bentuk kotak tajam ala Mecha
             customClass: {
                 popup: 'nerv-popup-border'
             }
@@ -94,16 +92,15 @@
 </script>
 
 <style>
-    /* --- CSS Tambahan --- */
+    /* --- CSS dengan bantuan AI --- */
     
-    /* Membuat SweetAlert jadi kotak tajam (tidak rounded) */
+    /* Membuat SweetAlert jadi kotak tajam */
     .nerv-popup-border {
         border: 1px solid var(--eva-green) !important;
         border-radius: 0 !important;
         box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
     }
 
-    /* Style Button Danger */
     .btn-danger {
         background-color: transparent;
         border: 1px solid #e74c3c;
@@ -116,14 +113,12 @@
         box-shadow: 0 0 15px rgba(231, 76, 60, 0.6);
     }
 
-    /* Ukuran tombol kecil */
     .btn-sm {
         padding: 5px 15px;
         font-size: 0.8rem;
         min-width: 60px;
     }
 
-    /* Header Layout */
     .nerv-panel { animation: fadeIn 0.5s ease-out; }
     .header-section {
         display: flex;
@@ -142,12 +137,10 @@
     }
     .page-title { margin: 0; border: none; padding: 0; font-size: 2rem; }
 
-    /* Tabel Utils */
     .font-tech { font-family: 'Rajdhani', sans-serif; color: var(--eva-green); letter-spacing: 1px; }
     .action-group { display: flex; justify-content: center; gap: 10px; }
     .delete-form { display: inline; }
 
-    /* Paginasi Gelap */
     .pagination-wrapper { margin-top: 2rem; display: flex; justify-content: flex-end; }
     .pagination-wrapper nav { background: transparent !important; box-shadow: none !important; }
     .pagination-wrapper .page-item .page-link, .pagination-wrapper span, .pagination-wrapper a {
