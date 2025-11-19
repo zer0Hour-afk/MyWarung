@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NERV | MyWarung-01</title>
     <!-- Pengigat hanya kategori saja yang masih berfungsi -->
-    <!-- mengambil font Rajdhani -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -40,7 +39,6 @@
             background-size: 40px 40px;
         }
 
-        /* Typography Headings */
         h1, h2, h3, h4, h5, .brand-logo, nav a {
             font-family: 'Rajdhani', sans-serif; /* Font judul techy */
             text-transform: uppercase;
@@ -53,7 +51,6 @@
             padding-left: 12px;
         }
 
-        /* --- NAVIGATION --- */
         nav {
             background-color: rgba(21, 21, 26, 0.95);
             backdrop-filter: blur(10px);
@@ -90,7 +87,6 @@
             color: var(--eva-purple);
         }
 
-        /* Efek garis bawah techy saat hover */
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -105,13 +101,11 @@
             width: 100%;
         }
 
-        /* --- CONTAINER --- */
         .container {
             max-width: 1100px;
             margin: 3rem auto;
             background: var(--eva-bg-panel);
             padding: 2.5rem;
-            /* Sudut tajam ala mecha, bukan rounded */
             clip-path: polygon(
                 0 0, 
                 100% 0, 
@@ -123,7 +117,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* --- BUTTONS --- */
         .btn {
             display: inline-block;
             padding: 10px 20px;
@@ -162,7 +155,6 @@
             box-shadow: 0 0 15px rgba(255, 153, 0, 0.4);
         }
 
-        /* --- TABLES --- */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -193,7 +185,6 @@
             background-color: rgba(57, 255, 20, 0.05); /* Slight green tint on hover */
         }
 
-        /* --- FORMS --- */
         label {
             font-family: 'Rajdhani', sans-serif;
             color: var(--eva-green);
@@ -224,7 +215,6 @@
             background-color: #1a1a20;
         }
 
-        /* --- ALERTS --- */
         .alert {
             padding: 1rem;
             margin-bottom: 1.5rem;
@@ -242,7 +232,6 @@
             background: rgba(231, 76, 60, 0.1);
         }
 
-        /* --- FOOTER --- */
         footer {
             text-align: center;
             margin-top: 4rem;
@@ -255,7 +244,6 @@
             text-transform: uppercase;
         }
         
-        /* Responsiveness */
         @media (max-width: 768px) {
             .nav-links a {
                 margin-left: 1rem;
@@ -284,7 +272,6 @@
     </nav>
 
     <div class="container">
-        <!-- Blade Directives -->
         @if (session('success'))
             <div class="alert alert-success">
                 <strong>SYSTEM MSG:</strong> {{ session('success') }}
