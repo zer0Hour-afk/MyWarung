@@ -1,5 +1,5 @@
 <nav>
-    <div><strong>🛒 MyWarung-01</strong></div>
+    <div><strong>⬢ MyWarung-01</strong></div>
     <div class="menu">
         <a href="{{ url('/dashboard') }}">Dashboard</a>
         <a href="{{ url('/kategori') }}">Kategori</a>
