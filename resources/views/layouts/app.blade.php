@@ -27,7 +27,6 @@
             line-height: 1.6;
         }
 
-        /* Navigasi */
         nav {
             background-color: var(--color-bg-light);
             padding: 1rem 2rem;
@@ -73,7 +72,6 @@
             color: var(--color-accent);
         }
 
-        /* Tombol */
         .btn {
             display: inline-block;
             padding: 10px 16px;
@@ -87,14 +85,12 @@
             text-align: center;
         }
         .btn-primary { background-color: var(--color-accent); color: white; }
-        .btn-warning { background-color: #ff9900; color: #1a1a1a; } /* Orange Interface */
+        .btn-warning { background-color: #ff9900; color: #1a1a1a; } 
         .btn-danger { background-color: var(--color-danger); color: white; }
-        
         .btn-primary:hover { background-color: var(--color-accent-dark); }
         .btn-warning:hover { background-color: #cc7a00; }
         .btn-danger:hover { background-color: #b30000; }
 
-        /* Form dan tabel */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -156,7 +152,6 @@
             outline: none;
         }
 
-        /* Alert */
         .alert {
             padding: 1rem;
             margin-bottom: 1.5rem;
@@ -167,7 +162,6 @@
         .alert-success { background-color: var(--color-success); }
         .alert-danger { background-color: var(--color-danger); color: white; }
 
-        /* Footer */
         footer {
             text-align: center;
             margin-top: 3rem;
@@ -206,7 +200,7 @@
     </div>
 
     <footer>
-        &copy; {{ date('Y') }} MyWarung-01
+        SYSTEM.VER.2.0 // COPYRIGHT &copy; {{ date('Y') }} MyWarung-01
     </footer>
 </body>
 </html>

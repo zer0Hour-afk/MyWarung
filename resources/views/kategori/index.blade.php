@@ -66,7 +66,7 @@
 </div>
 
 <script>
-    // Fungsi Kustom SweetAlert 
+    // Fungsi Kustom SweetAlert dengan bantuan ai
     function confirmDelete(id) {
         Swal.fire({
             title: 'WARNING: SECURITY ALERT',
@@ -84,7 +84,6 @@
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                // Submit form secara manual jika user klik YES
                 document.getElementById('delete-form-' + id).submit();
             }
         })
@@ -93,8 +92,6 @@
 
 <style>
     /* --- CSS dengan bantuan AI --- */
-    
-    /* Membuat SweetAlert jadi kotak tajam */
     .nerv-popup-border {
         border: 1px solid var(--eva-green) !important;
         border-radius: 0 !important;

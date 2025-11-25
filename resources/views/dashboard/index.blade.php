@@ -6,14 +6,14 @@
     <div class="header-section">
         <div>
             <h1 class="page-title">Dashboard Overview</h1>
-            <p class="page-subtitle">Selamat datang kembali di MyWarung-01! 👋</p>
+            <p class="page-subtitle">Selamat datang kembali di MyWarung-01!</p>
         </div>
 
         <div class="date-badge">
             {{ now()->format('d M Y') }}
         </div>
     </div>
-    
+
     <div class="stats-grid">
 
         <div class="stat-card card-orange">
@@ -77,19 +77,16 @@
 
 
 <style>
-/* Reset & Base with Evangelion Palette */
 :root {
-    /* Unit-01 Colors */
-    --primary-orange: #ff9900;         /* Interface Orange */
+    --primary-orange: #ff9900;         
     --primary-orange-light: rgba(255, 153, 0, 0.15);
     
-    --primary-purple: #7d52be;         /* Unit-01 Main Purple */
+    --primary-purple: #7d52be;        
     --primary-purple-light: rgba(125, 82, 190, 0.15);
     
-    --primary-green: #39ff14;          /* Neon/Eye Green */
+    --primary-green: #39ff14;       
     --primary-green-light: rgba(57, 255, 20, 0.15);
-    
-    /* Dark Theme Base */
+
     --text-dark: #f4f4f4;
     --text-grey: #8a8a99;
     --bg-card: #15151a;
@@ -104,7 +101,6 @@
     color: var(--text-dark);
 }
 
-/* Header Styles */
 .header-section {
     display: flex;
     justify-content: space-between;
@@ -138,7 +134,6 @@
     border: 1px solid var(--primary-green);
 }
 
-/* Stats Grid */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -165,7 +160,6 @@
     border-color: var(--primary-purple);
 }
 
-/* Icon Styles */
 .stat-icon {
     width: 50px;
     height: 50px;
@@ -180,7 +174,6 @@
     height: 24px;
 }
 
-/* Content Styles */
 .stat-content h3 {
     font-size: 1.8rem;
     font-weight: 800;
@@ -197,7 +190,6 @@
     text-transform: uppercase;
 }
 
-/* Card Colors */
 .card-orange .stat-icon {
     background: var(--primary-orange-light);
     color: var(--primary-orange);
@@ -213,7 +205,6 @@
     color: var(--primary-green);
 }
 
-/* Actions Section */
 .section-divider h2 {
     font-size: 1.2rem;
     color: var(--text-dark);
