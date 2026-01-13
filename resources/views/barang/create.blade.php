@@ -6,7 +6,6 @@
     <form action="{{ route('barang.store') }}" method="POST">
         @csrf
 
-        {{-- Baris 1: Kode & Nama --}}
         <div style="display: flex; gap: 1rem;">
             <div class="form-group" style="flex: 1;">
                 <label for="kode_barcode">Kode Barcode (Opsional)</label>
@@ -24,7 +23,6 @@
             </div>
         </div>
 
-        {{-- Baris 2: Relasi (Kategori, Satuan, Pemasok) --}}
         <div style="display: flex; gap: 1rem;">
             <div class="form-group" style="flex: 1;">
                 <label for="id_kategori">Kategori</label>
@@ -70,7 +68,6 @@
             </div>
         </div>
         
-        {{-- Baris 3: Harga & Stok --}}
         <div style="display: flex; gap: 1rem;">
             <div class="form-group" style="flex: 1;">
                 <label for="harga_beli">Harga Beli</label>
@@ -102,9 +99,3 @@
         <button type="submit" class="btn btn-primary">Simpan Barang</button>
     </form>
 @endsection
-
-{{-- CSS Tambahan (Opsional, letakkan di <style> layout) --}}
-<style>
-    select { width: 100%; padding: 8px; box-sizing: border-box; }
-    input[type="number"] { width: 100%; padding: 8px; box-sizing: border-box; }
-</style>

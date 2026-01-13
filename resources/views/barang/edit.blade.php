@@ -7,7 +7,6 @@
         @csrf
         @method('PUT')
 
-        {{-- Baris 1: Kode & Nama --}}
         <div style="display: flex; gap: 1rem;">
             <div class="form-group" style="flex: 1;">
                 <label for="kode_barcode">Kode Barcode (Opsional)</label>
@@ -25,14 +24,12 @@
             </div>
         </div>
 
-        {{-- Baris 2: Relasi (Kategori, Satuan, Pemasok) --}}
         <div style="display: flex; gap: 1rem;">
             <div class="form-group" style="flex: 1;">
                 <label for="id_kategori">Kategori</label>
                 <select id="id_kategori" name="id_kategori" required>
                     <option value="">-- Pilih Kategori --</option>
                     @foreach ($kategoris as $kategori)
-                        {{-- Logika: Pilih 'old' jika ada (gagal validasi), jika tidak, pilih data asli dari $barang --}}
                         <option value="{{ $kategori->id }}" {{ old('id_kategori', $barang->id_kategori) == $kategori->id ? 'selected' : '' }}>
                             {{ $kategori->nama }}
                         </option>
@@ -72,7 +69,6 @@
             </div>
         </div>
         
-        {{-- Baris 3: Harga & Stok --}}
         <div style="display: flex; gap: 1rem;">
             <div class="form-group" style="flex: 1;">
                 <label for="harga_beli">Harga Beli</label>
@@ -90,8 +86,6 @@
             </div>
             <div class="form-group" style="flex: 1;">
                 <label for="stok">Stok Saat Ini</label>
-                {{-- Stok biasanya tidak diedit langsung di sini, tapi melalui pembelian/penyesuaian stok. --}}
-                {{-- Tapi jika dibolehkan, gunakan input ini: --}}
                 <input type="number" id="stok" name="stok" value="{{ old('stok', $barang->stok) }}" min="0" required>
                 @error('stok')
                     <div class="text-danger">{{ $message }}</div>

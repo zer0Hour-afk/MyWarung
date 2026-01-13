@@ -12,10 +12,7 @@ class Satuan extends Model
     protected $table = 'satuan';
     public $timestamps = false;
 
-    protected $fillable = [
-        'nama_satuan',
-        'keterangan',
-    ];
+    protected $fillable = ['nama', 'deskripsi'];
 
     public function barang()
     {

@@ -3,33 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
-use App\Models\Kategori; // Butuh untuk dropdown
-use App\Models\Satuan;   // Butuh untuk dropdown
-use App\Models\Pemasok;  // Butuh untuk dropdown
-use App\Http\Requests\StoreBarangRequest;
-use App\Http\Requests\UpdateBarangRequest;
-use Illuminate\Support\Facades\Auth; // Untuk ambil ID pengguna login
+use App\Models\Kategori;
+use App\Models\Satuan;
+use App\Models\Pemasok;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BarangController extends Controller
 {
-    /**
-     * Tampilkan daftar (Read)
-     */
     public function index()
     {
-        // Eager loading relasi untuk performa (hindari N+1 query)
         $barangs = Barang::with(['kategori', 'satuan', 'pemasok'])
                          ->paginate(10);
                          
         return view('barang.index', compact('barangs'));
     }
 
-    /**
-     * Tampilkan form tambah data (Create)
-     */
     public function create()
     {
-        // Ambil data untuk dropdown di form
         $kategoris = Kategori::all();
         $satuans = Satuan::all();
         $pemasoks = Pemasok::all();
@@ -37,15 +28,21 @@ class BarangController extends Controller
         return view('barang.create', compact('kategoris', 'satuans', 'pemasoks'));
     }
 
-    /**
-     * Simpan data baru (Create)
-     */
-    public function store(StoreBarangRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
-        
-        // Tambahkan id_pengguna dari user yang sedang login
-        $data['id_pengguna'] = Auth::id(); // Atau auth()->id()
+        $request->validate([
+            'kode_barcode' => 'nullable|unique:barang,kode_barcode',
+            'nama_barang' => 'required',
+            'id_kategori' => 'required',
+            'id_satuan' => 'required',
+            'harga_beli' => 'required|numeric|min:0',
+            'harga_jual' => 'required|numeric|min:0',
+            'stok' => 'required|numeric|min:0',
+            'id_pemasok' => 'required',
+        ]);
+
+        $data = $request->all();
+        $data['id_pengguna'] = Auth::id();
 
         Barang::create($data);
 
@@ -53,22 +50,14 @@ class BarangController extends Controller
                          ->with('success', 'Barang berhasil ditambahkan.');
     }
 
-    /**
-     * Tampilkan detail data (Read)
-     */
     public function show(Barang $barang)
     {
-        // Load relasi agar bisa ditampilkan di view
         $barang->load(['kategori', 'satuan', 'pemasok', 'pengguna']);
         return view('barang.show', compact('barang'));
     }
 
-    /**
-     * Tampilkan form edit data (Update)
-     */
     public function edit(Barang $barang)
     {
-        // Kirim juga data untuk dropdown
         $kategoris = Kategori::all();
         $satuans = Satuan::all();
         $pemasoks = Pemasok::all();
@@ -76,25 +65,25 @@ class BarangController extends Controller
         return view('barang.edit', compact('barang', 'kategoris', 'satuans', 'pemasoks'));
     }
 
-    /**
-     * Update data di database (Update)
-     */
-    public function update(UpdateBarangRequest $request, Barang $barang)
+    public function update(Request $request, Barang $barang)
     {
-        $data = $request->validated();
-        
-        // Opsional: rekam siapa yang mengupdate
-        // $data['id_pengguna_update'] = Auth::id(); // (Perlu tambah kolom di DB)
+        $request->validate([
+            'kode_barcode' => 'nullable|unique:barang,kode_barcode,' . $barang->id,
+            'nama_barang' => 'required',
+            'id_kategori' => 'required',
+            'id_satuan' => 'required',
+            'harga_beli' => 'required|numeric|min:0',
+            'harga_jual' => 'required|numeric|min:0',
+            'stok' => 'required|numeric|min:0',
+            'id_pemasok' => 'required',
+        ]);
 
-        $barang->update($data);
+        $barang->update($request->all());
 
         return redirect()->route('barang.index')
                          ->with('success', 'Barang berhasil diperbarui.');
     }
 
-    /**
-     * Hapus data (Delete)
-     */
     public function destroy(Barang $barang)
     {
         try {
@@ -102,7 +91,6 @@ class BarangController extends Controller
             return redirect()->route('barang.index')
                              ->with('success', 'Barang berhasil dihapus.');
         } catch (\Illuminate\Database\QueryException $e) {
-            // Tangkap error jika ada foreign key constraint
             return redirect()->route('barang.index')
                              ->with('error', 'Barang tidak dapat dihapus karena sudah terkait dengan transaksi.');
         }

@@ -1,18 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- SweetAlert2 --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="nerv-panel">
     <div class="header-section">
         <div>
-            <div class="system-tag">DATA.BASE // CATEGORY_LIST</div>
-            <h2 class="page-title">MANAJEMEN KATEGORI</h2>
+            <div class="system-tag">DATA.BASE // UNIT_LIST</div>
+            <h2 class="page-title">MANAJEMEN SATUAN</h2>
         </div>
         
-        <a href="{{ route('kategori.create') }}" class="btn btn-primary">
-            <span style="margin-right: 8px; font-weight:bold;">[+]</span> TAMBAH KATEGORI
+        <a href="{{ route('satuan.create') }}" class="btn btn-primary">
+            <span style="margin-right: 8px; font-weight:bold;">[+]</span> TAMBAH SATUAN
         </a>
     </div>
 
@@ -20,26 +19,28 @@
         <table>
             <thead>
                 <tr>
-                    <th width="100px">ID.REF</th>
-                    <th>NAMA KATEGORI</th>
+                    <th width="80px">NO</th>
+                    <th>NAMA SATUAN</th>
+                    <th>DESKRIPSI</th>
                     <th width="220px" style="text-align: center;">AKSI</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($kategoris as $kategori)
+                @forelse ($satuan as $item)
                     <tr>
-                        <td class="font-tech">#{{ str_pad($kategori->id, 3, '0', STR_PAD_LEFT) }}</td>
-                        <td style="font-weight: 600; color: #fff;">{{ $kategori->nama }}</td>
+                        <td class="font-tech">#{{ str_pad($loop->iteration, 3, '0', STR_PAD_LEFT) }}</td>
+                        <td style="font-weight: 600; color: #fff;">{{ $item->nama }}</td>
+                        <td style="color: var(--text-muted);">{{ $item->deskripsi ?? '-' }}</td>
                         <td style="text-align: center;">
                             <div class="action-group">
-                                <a href="{{ route('kategori.edit', $kategori->id) }}" class="btn btn-sm btn-warning">
+                                <a href="{{ route('satuan.edit', $item->id) }}" class="btn btn-sm btn-warning">
                                     EDIT
                                 </a>
 
-                                <form id="delete-form-{{ $kategori->id }}" action="{{ route('kategori.destroy', $kategori->id) }}" method="POST" class="delete-form">
+                                <form id="delete-form-{{ $item->id }}" action="{{ route('satuan.destroy', $item->id) }}" method="POST" class="delete-form">
                                     @csrf
                                     @method('DELETE') 
-                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $kategori->id }})">
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $item->id }})">
                                         HAPUS
                                     </button>
                                 </form>
@@ -48,17 +49,13 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3" style="text-align: center; padding: 3rem; color: var(--text-muted);">
-                            [ TIDAK ADA DATA KATEGORI YANG DITEMUKAN ]
+                        <td colspan="4" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                            [ TIDAK ADA DATA SATUAN YANG DITEMUKAN ]
                         </td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
-    </div>
-    
-    <div class="pagination-wrapper">
-        {{ $kategoris->links() }}
     </div>
 </div>
 
@@ -66,7 +63,7 @@
     function confirmDelete(id) {
         Swal.fire({
             title: 'WARNING: SECURITY ALERT',
-            text: "Data kategori ini akan dihapus. Lanjutkan?",
+            text: "Data satuan ini akan dihapus. Lanjutkan?",
             icon: 'warning',
             showCancelButton: true,
             background: '#15151a', 
@@ -84,8 +81,8 @@
     }
 </script>
 
+{{-- Style CSS --}}
 <style>
-    /* Styling NERV/Cyberpunk Global */
     .nerv-popup-border {
         border: 1px solid var(--eva-green, #39ff14) !important;
         border-radius: 0 !important;
@@ -101,22 +98,5 @@
     .font-tech { font-family: 'Rajdhani', sans-serif; color: var(--eva-green, #39ff14); letter-spacing: 1px; }
     .action-group { display: flex; justify-content: center; gap: 10px; }
     .delete-form { display: inline; }
-
-    /* Pagination Style */
-    .pagination-wrapper { margin-top: 2rem; display: flex; justify-content: flex-end; }
-    .pagination-wrapper nav { background: transparent !important; box-shadow: none !important; }
-    .pagination-wrapper .page-item .page-link, .pagination-wrapper span, .pagination-wrapper a {
-        background-color: #0e0e12 !important;
-        border-color: #444 !important;
-        color: #888 !important;
-        border-radius: 0 !important;
-        padding: 8px 16px;
-        font-family: 'Rajdhani', sans-serif;
-    }
-    .pagination-wrapper .active .page-link {
-        background-color: #734CA6 !important;
-        color: white !important;
-        border-color: #734CA6 !important;
-    }
 </style>
 @endsection

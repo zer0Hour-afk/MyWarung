@@ -5,20 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kategori extends Model
+class Pemasok extends Model
 {
     use HasFactory;
 
-    protected $table = 'kategori'; 
-    
+    protected $table = 'pemasok';
     public $timestamps = false;
 
     protected $fillable = [
-        'nama',
+        'nama_pemasok',
+        'alamat',
+        'telepon',
+        'email',
+        'kontak_person'
     ];
-
-    public function barang()
-    {
-        return $this->hasMany(Barang::class, 'id_kategori');
-    }
 }
