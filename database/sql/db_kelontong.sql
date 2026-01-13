@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Okt 2025 pada 10.34
+-- Waktu pembuatan: 13 Jan 2026 pada 08.41
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -45,11 +45,35 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id`, `kode_barcode`, `nama_barang`, `id_kategori`, `id_satuan`, `harga_beli`, `harga_jual`, `stok`, `id_pemasok`, `id_pengguna`) VALUES
-(1, '899123456001', 'Indomie Goreng', 1, 1, 2500, 3000, 200, 1, 1),
+(1, '899123456001', 'Indomie Goreng', 1, 1, 2500, 3000, 200, 1, 6),
 (2, '899456789002', 'Aqua 600ml', 2, 3, 3000, 4000, 150, 2, 2),
 (3, '899789123003', 'Sabun Lifebuoy', 4, 1, 3500, 5000, 100, 3, 2),
 (4, '899456123004', 'Sikat Gigi Formula', 4, 1, 6000, 8000, 75, 3, 3),
-(5, '899321654005', 'Beras 5Kg', 3, 5, 60000, 70000, 50, 4, 1);
+(5, '899321654005', 'Beras 5Kg', 3, 5, 60000, 70000, 50, 4, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `cache`
+--
+
+CREATE TABLE `cache` (
+  `key` varchar(255) NOT NULL,
+  `value` mediumtext NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `cache_locks`
+--
+
+CREATE TABLE `cache_locks` (
+  `key` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -106,6 +130,57 @@ INSERT INTO `detail_penjualan` (`id`, `id_penjualan`, `id_barang`, `jumlah`, `ha
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `job_batches`
+--
+
+CREATE TABLE `job_batches` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `total_jobs` int(11) NOT NULL,
+  `pending_jobs` int(11) NOT NULL,
+  `failed_jobs` int(11) NOT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
+  `cancelled_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `finished_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `kategori`
 --
 
@@ -123,7 +198,42 @@ INSERT INTO `kategori` (`id`, `nama`) VALUES
 (2, 'Minuman'),
 (3, 'Kebutuhan Rumah Tangga'),
 (4, 'Perawatan Tubuh'),
-(5, 'Elektronik');
+(5, 'Elektronik'),
+(9, 'Alat Makan');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '0001_01_01_000000_create_users_table', 1),
+(2, '0001_01_01_000001_create_cache_table', 1),
+(3, '0001_01_01_000002_create_jobs_table', 1),
+(4, '2025_10_21_005917_import_sql_database', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `password_reset_tokens`
+--
+
+CREATE TABLE `password_reset_tokens` (
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -149,7 +259,8 @@ INSERT INTO `pemasok` (`id`, `nama_pemasok`, `alamat`, `telepon`, `email`, `kont
 (2, 'PT Aqua Danone', 'Martapura', '0217654321', 'sales@gmail.com', 'Baihaqqi'),
 (3, 'PT Unilever Indonesia', 'Paringin', '0218889990', 'cs@gmail.co.id', 'Bambang Kadapatan'),
 (4, 'CV Sejahtera Abadi', 'Banjarmasin', '0511321456', 'cvsejahtera@gmail.com', 'Yuuki Yuuna'),
-(5, 'UD Maju Bersama', 'Banjarbaru', '0511738492', 'udmaju@gmail.com', 'Wahyu');
+(5, 'UD Maju Bersama', 'Banjarbaru', '0511738492', 'udmaju@gmail.com', 'Wahyu'),
+(6, 'PT Pencari Cinta Sejati', 'Camelot', '0895414054123', 'artgur@gmail.com', 'Arthur');
 
 -- --------------------------------------------------------
 
@@ -191,6 +302,7 @@ CREATE TABLE `pengguna` (
   `peran` varchar(20) DEFAULT NULL,
   `telepon` varchar(20) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
+  `foto_profil` varchar(255) DEFAULT NULL,
   `status_aktif` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -198,12 +310,16 @@ CREATE TABLE `pengguna` (
 -- Dumping data untuk tabel `pengguna`
 --
 
-INSERT INTO `pengguna` (`id`, `nama_pengguna`, `kata_sandi`, `nama_lengkap`, `peran`, `telepon`, `email`, `status_aktif`) VALUES
-(1, 'admin', '12345', 'Budi Kelontong', 'admin', '081234567890', 'admin@gmail.com', 1),
-(2, 'staff1', '12345', 'Joko Lengser', 'staff', '082134567891', 'joko@gmail.com', 1),
-(3, 'staff2', '12345', 'Snake Wibawa', 'staff', '083134567892', 'ular@gmail.com', 1),
-(4, 'kasir1', '12345', 'Elizabeth White', 'kasir', '084134567893', 'eli@gmail.com', 1),
-(5, 'kasir2', '12345', 'Luna Bulan', 'kasir', '085134567894', 'bln@gmail.com', 1);
+INSERT INTO `pengguna` (`id`, `nama_pengguna`, `kata_sandi`, `nama_lengkap`, `peran`, `telepon`, `email`, `foto_profil`, `status_aktif`) VALUES
+(1, 'admin', '12345', 'Budi Kelontong', 'admin', '081234567890', 'admin@gmail.com', NULL, 1),
+(2, 'staff1', '12345', 'Joko Lengser', 'staff', '082134567891', 'joko@gmail.com', NULL, 1),
+(3, 'staff2', '12345', 'Snake Wibawa', 'staff', '083134567892', 'ular@gmail.com', NULL, 1),
+(4, 'kasir1', '12345', 'Elizabeth White', 'kasir', '084134567893', 'eli@gmail.com', NULL, 1),
+(5, 'kasir2', '12345', 'Luna Bulan', 'kasir', '085134567894', 'bln@gmail.com', NULL, 1),
+(6, 'admin', '$2y$12$r9TvZox07bqVSzSxiwJDROXch1oEIEByh1VSh3rCiOTizpw8aPLFS', 'Administrator', 'admin', '08123456789', 'admin@toko.com', NULL, 1),
+(7, 'admin2', '$2y$12$mpYZKMZyrdMyKUyD5QD5JOM.K9bHlIcnA0pfV7GZCiFiO3cq5JkP.', 'Admin Cadangan', 'admin', '08123456799', 'admin2@toko.com', NULL, 1),
+(8, 'isam', '$2y$12$qeuFYY9OONmdTDG04OhZIOL2JEyaHGZoR7tPYJ5aZOLk9Rstcl6CS', 'Isam Anni', 'admin', '089541405403', 'isam@gmail.com', NULL, 1),
+(9, 'affan', '$2y$12$/SeMo.BwBacYaszjLPhS7.XaiP9bug2CrsjGz.fGLWu66uWGbbE/6', 'Affan Maulana', 'admin', '0895414054123', 'affan@gmail.com', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -282,6 +398,46 @@ INSERT INTO `satuan` (`id`, `nama`, `deskripsi`) VALUES
 (4, 'Pack', 'Kemasan isi banyak'),
 (5, 'Kg', 'Berat per kilogram');
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` varchar(255) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
+  `last_activity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('DR5DbgX0HHBLaO9gpVogIgCFpm4Y5Okjfdg1ygRt', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMUlYYlZZWm1oVlFrdUl0M1BCcUVlZTc1UjFDSzJRMzlRZXdGSkE0RyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9yZWdpc3RlciI7fX0=', 1767969968),
+('wBALfafCd49oTuFR6wmMokaIEN3xv327TpvHU0hq', 7, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiNVNyZzlhWlJjcEVvSXpQaGEweDF5alpNb2JiY1F2SE5TZWd6cDZzZyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo3O30=', 1768267506);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -295,6 +451,18 @@ ALTER TABLE `barang`
   ADD KEY `fk_barang_satuan` (`id_satuan`),
   ADD KEY `fk_barang_pemasok` (`id_pemasok`),
   ADD KEY `fk_barang_pengguna` (`id_pengguna`);
+
+--
+-- Indeks untuk tabel `cache`
+--
+ALTER TABLE `cache`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indeks untuk tabel `cache_locks`
+--
+ALTER TABLE `cache_locks`
+  ADD PRIMARY KEY (`key`);
 
 --
 -- Indeks untuk tabel `detail_pembelian`
@@ -313,10 +481,42 @@ ALTER TABLE `detail_penjualan`
   ADD KEY `fk_detail_penjualan_barang` (`id_barang`);
 
 --
+-- Indeks untuk tabel `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indeks untuk tabel `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobs_queue_index` (`queue`);
+
+--
+-- Indeks untuk tabel `job_batches`
+--
+ALTER TABLE `job_batches`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  ADD PRIMARY KEY (`email`);
 
 --
 -- Indeks untuk tabel `pemasok`
@@ -360,6 +560,21 @@ ALTER TABLE `satuan`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sessions_user_id_index` (`user_id`),
+  ADD KEY `sessions_last_activity_index` (`last_activity`);
+
+--
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -382,16 +597,34 @@ ALTER TABLE `detail_penjualan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT untuk tabel `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT untuk tabel `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `pemasok`
 --
 ALTER TABLE `pemasok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `pembelian`
@@ -403,7 +636,7 @@ ALTER TABLE `pembelian`
 -- AUTO_INCREMENT untuk tabel `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `penjualan`
@@ -422,6 +655,12 @@ ALTER TABLE `riwayat_stok`
 --
 ALTER TABLE `satuan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
